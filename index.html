@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <title>Your Name - Portfolio</title>
+    <title>Jemuel Mar - Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -152,18 +152,20 @@
         }
 
         /* Hero Section */
-        .hero {
-            min-height: 100vh;
+         .hero {
+            min-height: calc(100vh - 80px); /* subtract navbar height */
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #0a0a0a;
             color: white;
             text-align: center;
-            padding: 0 5%;
+            padding: 60px 5% 40px; /* reduced padding */
             position: relative;
             overflow: hidden;
         }
+
 
         .hero::before {
             content: '';
@@ -269,7 +271,9 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
             margin-bottom: 1rem;
             animation: fadeInUp 1s ease;
             text-shadow: 0 0 20px rgba(138, 43, 226, 0.5),
@@ -277,11 +281,18 @@
         }
 
         .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            margin-bottom: 1.5rem;
             animation: fadeInUp 1s ease 0.2s backwards;
             text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
         }
+        @media (max-width: 768px) {
+    .hero {
+        min-height: calc(100svh - 70px);
+        padding: 50px 15px 30px;
+    }
+}
+
 
         .cta-button {
             display: inline-block;
@@ -1055,10 +1066,38 @@
     color: white;
     cursor: pointer;
 }
+/* VANTA FULL BACKGROUND */
+#vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* behind everything */
+}
+
+/* Keep your electric effects visible */
+body::before,
+body::after,
+.electric-line-global,
+.particle-global {
+    z-index: 1 !important;
+}
+
+/* Ensure all content stays on top */
+nav,
+section,
+footer {
+    position: relative;
+    z-index: 2;
+}
 
     </style>
 </head>
 <body>
+    <!-- VANTA BACKGROUND -->
+<div id="vanta-bg"></div>
+
     <!-- Image Popup -->
 <div id="imagePopup" class="image-popup">
     <img id="popupImg" src="" alt="Preview">
@@ -1091,7 +1130,7 @@
         <div class="electric-line line4"></div>
         <div class="hero-content">
             <h1>Hi, I'm Jemuel Mar</h1>
-            <p>Full Stack Developer & Creative Problem Solver</p>
+            <p>Online Gamer & Creative Problem Solver</p>
             <a href="#contact" class="cta-button">Get In Touch</a>
         </div>
     </section>
@@ -1105,11 +1144,11 @@
                 <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying a good cup of coffee.</p>
                 <div class="skills">
                     <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">PHP</span>
                     <span class="skill-tag">HTML/CSS</span>
                     <span class="skill-tag">Python</span>
-                    <span class="skill-tag">UI/UX</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">MYSQL</span>     
                 </div>
             </div>
             <div class="floating-image-container">
@@ -1507,8 +1546,43 @@ function sendGmail(e) {
     window.open(gmailURL, "_blank");
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
 
+<script>
+let vantaEffect;
 
+function initVanta() {
+    if (vantaEffect) vantaEffect.destroy();
+
+    vantaEffect = VANTA.BIRDS({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        backgroundColor: 0x0a0a0a,
+        color1: 0x8a2be2,
+        color2: 0x00bfff,
+        birdSize: 0.8,
+        wingSpan: 20,
+        separation: 50,
+        alignment: 50,
+        cohesion: 50
+    });
+}
+
+// Init after page load
+window.addEventListener("load", initVanta);
+
+// Re-init on resize (prevents glitches)
+window.addEventListener("resize", () => {
+    if (vantaEffect) vantaEffect.resize();
+});
+</script>
 
 </body>
 </html>
